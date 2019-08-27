@@ -1,5 +1,7 @@
 package com.jy.msdk.bean;
 
+import java.util.Map;
+
 public class OrderInfo {
 
     private String orderId;
@@ -15,6 +17,17 @@ public class OrderInfo {
     private String productName;
 
     private String productDesc;
+
+    private Map<String, String> extraParams;
+
+    public Map<String, String> getExtraParams() {
+        return extraParams;
+    }
+
+    public OrderInfo setExtraParams(Map<String, String> extraParams) {
+        this.extraParams = extraParams;
+        return this;
+    }
 
     public String getOrderId() {
         return orderId;

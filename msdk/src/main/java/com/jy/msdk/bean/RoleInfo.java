@@ -1,7 +1,11 @@
 package com.jy.msdk.bean;
 
 public class RoleInfo {
+    public static int ROLE_CREATE = 1;
+    public static int ROLE_LOGIN = 2;
+    public static int ROLE_LOGOUT = 3;
 
+    private int state = ROLE_LOGIN; //状态，1.创建角色  2.登录角色   3.登出角色
     private String serverId;// 服务器Id
     private String serverName;// 服务器名称
     private String roleName;// 角色名称
@@ -10,7 +14,7 @@ public class RoleInfo {
     private String roleBalance;// 角色现有金额
     private int roleCreateTime;// UC与1881渠道必传，值为10位数时间戳
 
-    private int vipLevel;// 设置当前用户vip等级，必须为整型字符串
+    private String vipLevel;// 设置当前用户vip等级，必须为整型字符串
 
     private String partyName; // 设置帮派，公会名称
     private String roleGender;// 360渠道参数
@@ -21,6 +25,16 @@ public class RoleInfo {
     private String partyRoleId;// 360渠道参数，设置角色在帮派中的id
     private String partyRoleName;// 360渠道参数，设置角色在帮派中的名称
     private String friendList;// 360渠道参数，设置好友关系列表，格式请参考
+
+
+    public int getState() {
+        return state;
+    }
+
+    public RoleInfo setState(int state) {
+        this.state = state;
+        return this;
+    }
 
     public String getServerId() {
         return serverId;
@@ -85,11 +99,11 @@ public class RoleInfo {
         return this;
     }
 
-    public int getVipLevel() {
+    public String getVipLevel() {
         return vipLevel;
     }
 
-    public RoleInfo setVipLevel(int vipLevel) {
+    public RoleInfo setVipLevel(String vipLevel) {
         this.vipLevel = vipLevel;
         return this;
     }

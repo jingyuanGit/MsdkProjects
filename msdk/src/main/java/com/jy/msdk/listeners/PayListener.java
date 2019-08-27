@@ -6,7 +6,5 @@ public interface PayListener {
 
     void onCancel(String cpOrderId);
 
-    void onFailed(String cpOrderId, String message, String trace);
-
-    void onCompleted();
+    void onFailed(int code, String cpOrderId, String message);
 }

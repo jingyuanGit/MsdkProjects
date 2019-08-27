@@ -5,12 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 
-/**
- * Created by yuan on 2017/4/9.
- */
 public interface IActivityAdapter {
-
-    void onApplicationInit(Context context);
 
     void onCreate(Activity activity);
 
@@ -30,6 +25,6 @@ public interface IActivityAdapter {
 
     void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data);
 
-    void onConfigurationChanged(Configuration paramConfiguration, Activity activity);
+    void onConfigurationChanged(Activity activity, Configuration paramConfiguration);
 
 }

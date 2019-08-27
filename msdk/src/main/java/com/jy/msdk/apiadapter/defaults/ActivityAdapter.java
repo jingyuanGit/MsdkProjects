@@ -8,16 +8,8 @@ import android.content.res.Configuration;
 import com.jy.msdk.apiadapter.core.IActivityAdapter;
 
 
-/**
- * @author yuan
- */
 public class ActivityAdapter implements IActivityAdapter {
 
-
-    @Override
-    public void onApplicationInit(Context context) {
-
-    }
 
     @Override
     public void onCreate(Activity activity) {
@@ -66,7 +58,7 @@ public class ActivityAdapter implements IActivityAdapter {
     }
 
     @Override
-    public void onConfigurationChanged(Configuration paramConfiguration, Activity activity) {
+    public void onConfigurationChanged(Activity activity, Configuration paramConfiguration) {
 
     }
 

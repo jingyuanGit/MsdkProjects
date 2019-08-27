@@ -1,18 +1,16 @@
-package com.jy.msdk.config;
+package com.jy.msdk.model.config;
 
 import android.content.Context;
 import android.util.ArrayMap;
 
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class SdkConfig {
 
-    //
+    //游戏key
     public static final String ACCESS_KEY = "accessKey";
     //配置文件名
     public static final String PROPERTIES_NAME = "TSdkConfig.properties";
@@ -28,6 +26,8 @@ public class SdkConfig {
     public static final String HOST = "host";
     //是否显示浮标
     public static final String ICON_SWITCH = "iconSwitch";
+
+    public static final String IS_LANDSCAPE = "isLandscape";
 
     private static Map<String, String> save = new ArrayMap<>();
 
@@ -74,9 +74,8 @@ public class SdkConfig {
         save.put(key, value);
     }
 
-    static class Holder {
+    private static class Holder {
         static SdkConfig INSTANCE = new SdkConfig();
     }
-
 
 }
