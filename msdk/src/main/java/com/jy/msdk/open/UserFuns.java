@@ -2,7 +2,7 @@ package com.jy.msdk.open;
 
 import android.content.Context;
 
-import com.jy.msdk.apiadapter.core.IUserAdapter;
+import com.jy.msdk.bridge.core.IUser;
 import com.jy.msdk.bean.RoleInfo;
 import com.jy.msdk.bean.UserInfo;
 import com.jy.msdk.model.login.LoginState;
@@ -17,17 +17,17 @@ public class UserFuns {
 
     private LoginState mState;
 
-    private IUserAdapter mUserAdapter;
+    private IUser mUserBridge;
 
     private UserFuns() {
     }
 
-    public IUserAdapter getUserAdapter() {
-        return mUserAdapter;
+    public IUser getUserBridge() {
+        return mUserBridge;
     }
 
-    public UserFuns setUserAdapter(IUserAdapter userAdapter) {
-        mUserAdapter = userAdapter;
+    public UserFuns setUserBridge(IUser userBridge) {
+        mUserBridge = userBridge;
         return this;
     }
 
@@ -54,20 +54,20 @@ public class UserFuns {
     }
 
     public void login(Context context) {
-        if (mUserAdapter != null)
-            mUserAdapter.login(context);
+        if (mUserBridge != null)
+            mUserBridge.login(context);
     }
 
     public void logout(Context context) {
         setLoginState(LoginState.LOGOUT);
         setUserInfo(null);
-        if (mUserAdapter != null)
-            mUserAdapter.logout(context);
+        if (mUserBridge != null)
+            mUserBridge.logout(context);
     }
 
     public void submitRoleInfo(Context context, RoleInfo roleInfo) {
-        if (mUserAdapter != null)
-            mUserAdapter.submitRoleInfo(context, roleInfo);
+        if (mUserBridge != null)
+            mUserBridge.submitRoleInfo(context, roleInfo);
     }
 
     private static class Holder {

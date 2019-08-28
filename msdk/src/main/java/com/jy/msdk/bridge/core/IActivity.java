@@ -1,11 +1,11 @@
-package com.jy.msdk.apiadapter.core;
+package com.jy.msdk.bridge.core;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 
-public interface IActivityAdapter {
+public interface IActivity {
 
     void onCreate(Activity activity);
 
@@ -27,4 +27,5 @@ public interface IActivityAdapter {
 
     void onConfigurationChanged(Activity activity, Configuration paramConfiguration);
 
+    void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults);
 }

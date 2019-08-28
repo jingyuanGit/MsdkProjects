@@ -6,14 +6,14 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.text.TextUtils;
 
-import com.jy.msdk.apiadapter.core.IActivityAdapter;
-import com.jy.msdk.apiadapter.core.IAdapterFactory;
-import com.jy.msdk.apiadapter.core.IPayAdapter;
-import com.jy.msdk.apiadapter.core.ISdkAdapter;
-import com.jy.msdk.apiadapter.core.IUserAdapter;
 import com.jy.msdk.bean.OrderInfo;
 import com.jy.msdk.bean.RoleInfo;
-import com.jy.msdk.builder.AdapterFactoryBuilder;
+import com.jy.msdk.bridge.core.IActivity;
+import com.jy.msdk.bridge.core.IPay;
+import com.jy.msdk.bridge.core.ISdk;
+import com.jy.msdk.bridge.core.IUser;
+import com.jy.msdk.builder.BridgeBuilder;
+import com.jy.msdk.builder.IBuildBridge;
 import com.jy.msdk.listeners.ExitListener;
 import com.jy.msdk.listeners.InitListener;
 import com.jy.msdk.listeners.LoginListener;
@@ -32,27 +32,30 @@ public class MSdk {
 
     //初始化
     public static void init(Context context) {
+        LogUtils.i("msdk start init");
         //SdkConfig初始化
         SdkConfig.getInstance().init(context);
-        //生成适配器工厂
-        IAdapterFactory iAdapterFactory = new AdapterFactoryBuilder().buildAdapterFactory();
-        if (iAdapterFactory == null) {
-            LogUtils.e("MSdk init error! Please check config.");
-            return;
+        //建造桥梁
+        IBuildBridge buildBridge = new BridgeBuilder();
+        ISdk sdkBridge = buildBridge.buildSdkBridge();
+        IActivity activityBridge = buildBridge.buildActivityBridge();
+        IUser userBridge = buildBridge.buildUserBridge();
+        IPay payBridge = buildBridge.buildPayBridge();
+        InitListener initListener = ListenerCache.getInstance().getInitListener();
+        if (sdkBridge == null || activityBridge == null || userBridge == null || payBridge == null) {
+            if (initListener != null)
+                initListener.initFailed(100, "msdk bridge init error");
         }
-        //创建各种适配器
-        ISdkAdapter sdkAdapter = iAdapterFactory.getSdkAdapter();
-        IActivityAdapter activityAdapter = iAdapterFactory.getActivityAdapter();
-        IUserAdapter userAdapter = iAdapterFactory.getUserAdapter();
-        IPayAdapter payAdapter = iAdapterFactory.getPayAdapter();
-
         //设置适配器
-        SdkFuns.getInstance().setISdkAdapter(sdkAdapter);
-        ActivityFuns.getInstance().setActivityAdapter(activityAdapter);
-        UserFuns.getInstance().setUserAdapter(userAdapter);
-        PayFuns.getInstance().setPayAdapter(payAdapter);
+        SdkFuns.getInstance().setSdkBridge(sdkBridge);
+        ActivityFuns.getInstance().setActivityBridge(activityBridge);
+        UserFuns.getInstance().setUserBridge(userBridge);
+        PayFuns.getInstance().setPayBridge(payBridge);
         //调用初始化
         SdkFuns.getInstance().init(context);
+        LogUtils.i("msdk end init");
+        if (initListener != null)
+            initListener.initSuccess();
     }
 
     public static boolean isLandscape() {
@@ -129,20 +132,28 @@ public class MSdk {
         ActivityFuns.getInstance().onConfigurationChanged(configuration, activity);
     }
 
+    public static void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        ActivityFuns.getInstance().onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
     public static void setExitListener(ExitListener exitListener) {
         ListenerCache.getInstance().setExitListener(exitListener);
     }
 
     public static void setInitListener(InitListener initListener) {
         ListenerCache.getInstance().setInitListener(initListener);
-
     }
 
     public static void setLoginListener(LoginListener loginListener) {
         ListenerCache.getInstance().setLoginListener(loginListener);
     }
 
+    public static void setLogoutListener(LogoutListener logoutListener) {
+        ListenerCache.getInstance().setLogoutListener(logoutListener);
+    }
+
     public static void setPayListener(PayListener payListener) {
         ListenerCache.getInstance().setPayListener(payListener);
     }
+
 }

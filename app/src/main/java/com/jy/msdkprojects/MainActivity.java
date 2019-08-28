@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -15,10 +16,16 @@ import android.widget.TextView;
 import com.jy.msdk.MSdk;
 import com.jy.msdk.bean.OrderInfo;
 import com.jy.msdk.bean.RoleInfo;
+import com.jy.msdk.listeners.ExitListener;
+import com.jy.msdk.listeners.InitListener;
+import com.jy.msdk.listeners.LoginListener;
+import com.jy.msdk.listeners.LogoutListener;
+import com.jy.msdk.listeners.PayListener;
 
 public class MainActivity extends AppCompatActivity implements
         View.OnClickListener {
 
+    private static final String TAG = "MSDKLOG";
     TextView userInfoTv;
 
     @Override
@@ -26,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        initListener();
         MSdk.onCreate(this);
     }
 
@@ -109,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        MSdk.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        MSdk.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
@@ -212,7 +220,6 @@ public class MainActivity extends AppCompatActivity implements
                                 public void onClick(DialogInterface arg0,
                                                     int arg1) {
                                     System.exit(0);
-//                                    Sdk.getInstance().exit(GameActivity.this);
                                 }
                             }).setNegativeButton("取消", null).show();
         }
@@ -221,6 +228,67 @@ public class MainActivity extends AppCompatActivity implements
     private <T extends View> T findView(int id) {
         T view = (T) findViewById(id);
         return view;
+    }
+
+    private void initListener() {
+        MSdk.setLoginListener(new LoginListener() {
+            @Override
+            public void onSuccess(String userId) {
+                Log.d(TAG, "onSuccess: " + userId);
+                userInfoTv.setText("登录成功：" + userId);
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onFailed(int code, String message) {
+
+            }
+        });
+
+        MSdk.setLogoutListener(new LogoutListener() {
+            @Override
+            public void onSuccess() {
+                userInfoTv.setText("登出成功");
+            }
+
+            @Override
+            public void onFailed(int code, String message) {
+
+            }
+        });
+
+        MSdk.setPayListener(new PayListener() {
+            @Override
+            public void onSuccess(String orderId, String cpOrderId, String extraInfo) {
+
+            }
+
+            @Override
+            public void onCancel(String cpOrderId) {
+
+            }
+
+            @Override
+            public void onFailed(int code, String cpOrderId, String message) {
+
+            }
+        });
+
+        MSdk.setExitListener(new ExitListener() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onFailed(String message) {
+
+            }
+        });
     }
 
 

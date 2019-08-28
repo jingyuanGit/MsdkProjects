@@ -1,18 +1,17 @@
-package com.jy.msdk.apiadapter.defaults;
+package com.jy.msdk.bridge.defaults;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 
-import com.jy.msdk.apiadapter.core.IActivityAdapter;
+import com.jy.msdk.bridge.core.IActivity;
 
 
-public class ActivityAdapter implements IActivityAdapter {
-
+public class ActivityBridge implements IActivity {
 
     @Override
     public void onCreate(Activity activity) {
+
     }
 
     @Override
@@ -37,7 +36,6 @@ public class ActivityAdapter implements IActivityAdapter {
     @Override
     public void onPause(Activity activity) {
 
-
     }
 
     @Override
@@ -59,6 +57,11 @@ public class ActivityAdapter implements IActivityAdapter {
 
     @Override
     public void onConfigurationChanged(Activity activity, Configuration paramConfiguration) {
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
     }
 

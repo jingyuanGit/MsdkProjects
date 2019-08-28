@@ -3,7 +3,7 @@ package com.jy.msdk.bean;
 public class GameInfo {
 
     //游戏key，用于识别哪个游戏
-    private String gameKey;
+    private String gameId;
 
     //渠道ID，用于识别哪个渠道，如应用宝，九游，百度多酷等
     private int channelId;
@@ -14,12 +14,12 @@ public class GameInfo {
     //发行商ID，同一游戏，同一渠道可能会有多个发行商来发行
     private int issueId;
 
-    public String getGameKey() {
-        return gameKey;
+    public String getGameId() {
+        return gameId;
     }
 
     public GameInfo setGameId(String gameId) {
-        this.gameKey = gameId;
+        this.gameId = gameId;
         return this;
     }
 

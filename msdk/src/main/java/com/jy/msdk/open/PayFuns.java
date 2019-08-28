@@ -4,16 +4,15 @@ package com.jy.msdk.open;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.jy.msdk.apiadapter.core.IPayAdapter;
+import com.jy.msdk.bridge.core.IPay;
 import com.jy.msdk.bean.OrderInfo;
 import com.jy.msdk.bean.RoleInfo;
 import com.jy.msdk.bean.UserInfo;
-import com.jy.msdk.listeners.PayListener;
 import com.jy.msdk.model.login.LoginState;
 
 public class PayFuns {
 
-    private IPayAdapter mPayAdapter;
+    private IPay mPayBridge;
 
     private PayFuns() {
     }
@@ -33,16 +32,16 @@ public class PayFuns {
         // /pay/order
         // ...
         // orderInfo.setOrderId("123456");
-        if (mPayAdapter != null)
-            mPayAdapter.pay(context, orderInfo, roleInfo, userInfo);
+        if (mPayBridge != null)
+            mPayBridge.pay(context, orderInfo, roleInfo, userInfo);
     }
 
-    public IPayAdapter getPayAdapter() {
-        return mPayAdapter;
+    public IPay getPayBridge() {
+        return mPayBridge;
     }
 
-    public PayFuns setPayAdapter(IPayAdapter payAdapter) {
-        mPayAdapter = payAdapter;
+    public PayFuns setPayBridge(IPay payBridge) {
+        mPayBridge = payBridge;
         return this;
     }
 

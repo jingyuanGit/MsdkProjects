@@ -1,13 +1,13 @@
 package com.jy.msdk.open;
 
 import android.content.Context;
+import android.widget.ImageView;
 
-import com.jy.msdk.apiadapter.core.ISdkAdapter;
+import com.jy.msdk.bridge.core.ISdk;
 
 public class SdkFuns {
 
-    private ISdkAdapter mISdkAdapter;
-
+    private ISdk mSdkBridge;
 
     private void SdkFuns() {
 
@@ -18,30 +18,39 @@ public class SdkFuns {
     }
 
     public void init(Context context) {
-        if (mISdkAdapter != null)
-            mISdkAdapter.init(context);
+        if (mSdkBridge != null)
+            mSdkBridge.init(context);
     }
 
     public boolean isHaveExitDialog() {
-        if (mISdkAdapter != null)
-            return mISdkAdapter.isHaveExitDialog();
+        if (mSdkBridge != null)
+            return mSdkBridge.isHaveExitDialog();
         return false;
     }
 
     public void exit(Context context) {
-        if (mISdkAdapter != null)
-            mISdkAdapter.exit(context);
+        if (mSdkBridge != null)
+            mSdkBridge.exit(context);
     }
 
 
-    public ISdkAdapter getISdkAdapter() {
-        return mISdkAdapter;
+    public ISdk getSdkBridge() {
+        return mSdkBridge;
     }
 
-    public SdkFuns setISdkAdapter(ISdkAdapter ISdkAdapter) {
-        mISdkAdapter = ISdkAdapter;
+    public SdkFuns setSdkBridge(ISdk ISdkBridge) {
+        mSdkBridge = ISdkBridge;
         return this;
     }
+
+    public boolean isSupportSplash() {
+        return mSdkBridge.isSupportSplash();
+    }
+
+    public void startSplash(Context context, ImageView imageView) {
+        mSdkBridge.startSplash(context, imageView);
+    }
+
 
     private static class Holder {
         static SdkFuns INSTANCE = new SdkFuns();

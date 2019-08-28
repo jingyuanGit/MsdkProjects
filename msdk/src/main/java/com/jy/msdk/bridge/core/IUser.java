@@ -1,11 +1,11 @@
-package com.jy.msdk.apiadapter.core;
+package com.jy.msdk.bridge.core;
 
 import android.content.Context;
 
 import com.jy.msdk.bean.RoleInfo;
 
 
-public interface IUserAdapter {
+public interface IUser {
 
     void login(Context context);
 

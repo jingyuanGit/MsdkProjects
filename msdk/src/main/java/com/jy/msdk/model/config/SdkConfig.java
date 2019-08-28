@@ -3,6 +3,8 @@ package com.jy.msdk.model.config;
 import android.content.Context;
 import android.util.ArrayMap;
 
+import com.jy.msdk.uils.LogUtils;
+
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Map;
@@ -10,16 +12,16 @@ import java.util.Properties;
 
 public class SdkConfig {
 
-    //游戏key
-    public static final String ACCESS_KEY = "accessKey";
     //配置文件名
-    public static final String PROPERTIES_NAME = "TSdkConfig.properties";
-    //平台名
-    public static final String PLATFORM_NAME = "platformName";
-    //平台实现类
-    public static final String PLATFORM_CLASS = "platformClass";
-    //平台号
-    public static final String PLATFORM_ID = "platformId";
+    public static final String PROPERTIES_NAME = "MSdkConfig.properties";
+    //游戏名
+    public static final String GAME_ID = "gameId";
+    //渠道名
+    public static final String CHANNEL_NAME = "channelName";
+    //渠道实现类
+    public static final String CHANNEL_CLASS = "channelClass";
+    //渠道号
+    public static final String CHANNEL_ID = "channelId";
     //是否自动拉取登录界面
     public static final String AUTO_LOGIN = "autoLogin";
     //后台地址
@@ -53,8 +55,9 @@ public class SdkConfig {
                 String value = (String) entry.getValue();
                 save.put(key, value);
             }
+            LogUtils.i("sdkconfig init success");
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.i("sdkconfig init error: " + e.getMessage());
         } finally {
             if (in != null) {
                 try {

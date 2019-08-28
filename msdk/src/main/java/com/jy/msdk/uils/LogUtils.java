@@ -10,7 +10,7 @@ public class LogUtils {
 
     private static String TAG = "MSDKLOG";
 
-    private static boolean logSwitch = false; //日志开关,默认打开
+    private static boolean logSwitch = true; //日志开关,默认打开
 
     private static void setTAG(String tag) {
         TAG = tag;

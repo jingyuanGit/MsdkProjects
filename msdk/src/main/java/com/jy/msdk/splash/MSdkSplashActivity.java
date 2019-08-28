@@ -13,21 +13,21 @@ import android.widget.RelativeLayout;
 
 
 import com.jy.msdk.MSdk;
+import com.jy.msdk.open.SdkFuns;
 import com.jy.msdk.uils.LogUtils;
 
 import java.lang.ref.WeakReference;
 
 /**
- * Created by yuan on 2017/5/2.
  * 欢迎界面
  */
 public abstract class MSdkSplashActivity extends Activity {
 
     public static final int STARTGAMEACTIVITY = 0;
 
-    private static final String PORTRAIT_SPLASH_IMAGE_NAME = "tsdk_splash_img_portrait";
+    private static final String PORTRAIT_SPLASH_IMAGE_NAME = "msdk_splash_img_portrait";
 
-    private static final String LANDSCAPE_SPLASH_IMAGE_NAME = "tsdk_splash_img_landscape";
+    private static final String LANDSCAPE_SPLASH_IMAGE_NAME = "msdk_splash_img_landscape";
 
     public MH mh = new MH(this);
 
@@ -41,7 +41,7 @@ public abstract class MSdkSplashActivity extends Activity {
 
     /**
      * 设置闪屏界面持续时间，如果第三方已经有了闪屏，就闪第三方
-     * 注意如果项目中没有tsdk_splash_img这张图片，这个数值就会在post延迟任务时设为0
+     * 注意如果项目中没有Msdk_splash_img这张图片，这个数值就会在post延迟任务时设为0
      *
      * @param time
      */
@@ -65,12 +65,10 @@ public abstract class MSdkSplashActivity extends Activity {
             splash_image_res_id = getResources().getIdentifier(LANDSCAPE_SPLASH_IMAGE_NAME, "drawable", getPackageName());
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
-
         //百度这家的sdk本身就自带闪屏，执行sdk初始化的时候就会自动显示闪屏，
         //如果当前sdk支持闪屏，就不用了
-
-        if (Extend.getInstance().isFunctionSupported(Extend.SupportedSplash)) {
-            Extend.getInstance().callFunction(this, Extend.SupportedSplash);
+        if (SdkFuns.getInstance().isSupportSplash()) {
+            SdkFuns.getInstance().startSplash(this, imageView);
         } else {
             startSplash();
         }
@@ -178,6 +176,7 @@ public abstract class MSdkSplashActivity extends Activity {
     public abstract void startGameActivity();
 
     static class MH extends Handler {
+
         private WeakReference<Context> mContextRef;
 
         public MH(Context context) {

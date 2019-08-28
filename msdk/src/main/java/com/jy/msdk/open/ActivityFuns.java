@@ -1,15 +1,14 @@
 package com.jy.msdk.open;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 
-import com.jy.msdk.apiadapter.core.IActivityAdapter;
+import com.jy.msdk.bridge.core.IActivity;
 
 public class ActivityFuns {
 
-    private IActivityAdapter mActivityAdapter;
+    private IActivity mActivityBridge;
 
     private ActivityFuns() {
 
@@ -19,72 +18,76 @@ public class ActivityFuns {
         return Holder.INSTANCE;
     }
 
-    public IActivityAdapter getActivityAdapter() {
-        return mActivityAdapter;
+    public IActivity getActivityBridge() {
+        return mActivityBridge;
     }
 
-    public ActivityFuns setActivityAdapter(IActivityAdapter activityAdapter) {
-        mActivityAdapter = activityAdapter;
+    public ActivityFuns setActivityBridge(IActivity activityBridge) {
+        mActivityBridge = activityBridge;
         return this;
     }
 
-
     public void onCreate(Activity activity) {
-        if (mActivityAdapter != null)
-            mActivityAdapter.onCreate(activity);
+        if (mActivityBridge != null)
+            mActivityBridge.onCreate(activity);
     }
 
     public void onStart(Activity activity) {
-        if (mActivityAdapter != null)
-            mActivityAdapter.onStart(activity);
+        if (mActivityBridge != null)
+            mActivityBridge.onStart(activity);
 
     }
 
     public void onResume(Activity activity) {
-        if (mActivityAdapter != null)
-            mActivityAdapter.onResume(activity);
+        if (mActivityBridge != null)
+            mActivityBridge.onResume(activity);
 
     }
 
     public void onPause(Activity activity) {
-        if (mActivityAdapter != null)
-            mActivityAdapter.onPause(activity);
+        if (mActivityBridge != null)
+            mActivityBridge.onPause(activity);
 
     }
 
     public void onStop(Activity activity) {
-        if (mActivityAdapter != null)
-            mActivityAdapter.onStop(activity);
+        if (mActivityBridge != null)
+            mActivityBridge.onStop(activity);
 
     }
 
     public void onDestroy(Activity activity) {
-        if (mActivityAdapter != null)
-            mActivityAdapter.onDestroy(activity);
+        if (mActivityBridge != null)
+            mActivityBridge.onDestroy(activity);
 
     }
 
     public void onRestart(Activity activity) {
-        if (mActivityAdapter != null)
-            mActivityAdapter.onRestart(activity);
+        if (mActivityBridge != null)
+            mActivityBridge.onRestart(activity);
 
     }
 
     public void onNewIntent(Activity activity, Intent intent) {
-        if (mActivityAdapter != null)
-            mActivityAdapter.onNewIntent(activity, intent);
+        if (mActivityBridge != null)
+            mActivityBridge.onNewIntent(activity, intent);
 
     }
 
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent intent) {
-        if (mActivityAdapter != null)
-            mActivityAdapter.onActivityResult(activity, requestCode, resultCode, intent);
+        if (mActivityBridge != null)
+            mActivityBridge.onActivityResult(activity, requestCode, resultCode, intent);
 
     }
 
     public void onConfigurationChanged(Configuration configuration, Activity activity) {
-        if (mActivityAdapter != null)
-            mActivityAdapter.onConfigurationChanged(activity, configuration);
+        if (mActivityBridge != null)
+            mActivityBridge.onConfigurationChanged(activity, configuration);
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (mActivityBridge != null)
+            mActivityBridge.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     private static class Holder {
