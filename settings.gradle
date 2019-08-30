@@ -1,1 +1,1 @@
-include ':app', ':msdk'
+include ':app', ':msdk', ':sdk_channel'

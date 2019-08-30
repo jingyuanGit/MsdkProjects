@@ -24,6 +24,30 @@ android {
 
 }
 
+ext {
+    sdk_name = "Msdk"
+    sdk_version = "1.0"
+    sdk_build_Type = "release"
+    jarName = sdk_name + "-" + sdk_version + ".jar"
+    output_dir = "build/sdk/"
+    zipFile = file("build/intermediates/packaged-classes/$sdk_build_Type/classes.jar")
+}
+
+task clearJar(type: Delete) {
+    delete 'build/sdk/'
+}
+
+
+task copyJar(type: Copy) {
+    from zipFile
+    into (output_dir)
+    rename{
+        jarName
+    }
+}
+
+copyJar.dependsOn(clearJar,build)
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
